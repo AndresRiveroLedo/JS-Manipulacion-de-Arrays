@@ -115,7 +115,7 @@ Así descendemos 3 niveles en lugar de 15.
 Hay que tener en cuenta también que este es solo un ejemplo de estructuras de datos inmutables, pero sirve para tener una vista previa de como trabajan las mismas.
 Ahora, si quieres aplicar esto en tus proyectos hay librerías de Javascript como Mori o Immutable que nos permiten trabajar con inmutabilidad en nuestros datos de manera muy sencilla.
 
-# 📒 V3 - MAP
+# 📒 V4 - MAP
 
 + El map() método crea una nueva matriz con los resultados de llamar a una función proporcionada en cada elemento de la matriz que llama.
     + .map() es INMUTABLE por lo tanto no modifica el array original, sino que crea uno nuevo con la “transformación” aplicada.
@@ -165,3 +165,33 @@ Ahora, si quieres aplicar esto en tus proyectos hay librerías de Javascript com
     console.log(elements.join('-'));
     // expected "Fire-Air-Water"
  ```
+
+ # 📒 V5 - MAP reloaded
+
++ Usos comunes o clásicos de map() sobre los arrays:
+    + Limpiar datos, seleccionar datos dentro de un array y devolverlos para su utilización en futuras acciones.
+    + Añadir un nuevo elemento, modificar agregando un nuevo dato al objeto pero sin modificar el array original.
+
+Tener en cuenta que cuando trabajamos con objetos y map() y retornamos el mismo objeto estamos copiando la referencia en memoria que tiene el objeto original que le aplicamos el map(). Esto provoca que como estamos modificando la referencia en memoria, el array original también sea modificado. Entonces en conclusión, por más que map() sea inmutable en este punto estamos copiando la referencia en memoria y por eso hace el cambio en el original.
+
+```
+    // Estamos retornando el objeto
+    // por ende se copia la refencia en memoria
+    const rta = orders.map(item => {
+        item.tax = .19
+        return item;
+    })
+```
+
+Para evitarlo, y poder realizar una copia y evitar la referencia en memoria, utilizamos el spread operator de ES6 (https://developer.mozilla.org/es/docs/Web/JavaScript/Reference/Operators/Spread_syntax), donde generamos un nuevo objeto con los valores del objeto original y luego agregamos el nuevo valor que nos interesa.
+
+```
+    const rta = orders.map(item => {
+        // retornamos un nuevo objeto 
+        //pero evitamos hacer ref. en memoria
+        return {
+            ...item,
+            tax: .19,
+        }
+    })
+```

@@ -9,5 +9,7 @@ console.log('new', newArray);
 const newArray1 = [];
 for(let index = 0; index < letters.length; index++){
     const element = letters[index];
-    newArray.push(elemente + '++')
+    newArray.push(element + '++')
 }
+
+//Con map nos basta una linea de codigo para el mismo resultado
