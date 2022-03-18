@@ -173,12 +173,37 @@ Ahora, si quieres aplicar esto en tus proyectos hay librerías de Javascript com
     + Añadir un nuevo elemento, modificar agregando un nuevo dato al objeto pero sin modificar el array original.
 
 Tener en cuenta que cuando trabajamos con objetos y map() y retornamos el mismo objeto estamos copiando la referencia en memoria que tiene el objeto original que le aplicamos el map(). Esto provoca que como estamos modificando la referencia en memoria, el array original también sea modificado. Entonces en conclusión, por más que map() sea inmutable en este punto estamos copiando la referencia en memoria y por eso hace el cambio en el original.
++ Nuestro Array de Objetos:
+<aside>
+    const orders = [
+        {
+            customName: "Nicolas",
+            total: 60,
+            delivered: true,
+        }, 
+        {
+            customerName: "Zulema",
+            total: 120,
+            delivered: false,
+        },
+        {
+            customerName: "Santiago",
+            total: 180,
+            delivered: true,
+        },
+        {
+            customerName: "Valentina",
+            total: 240,
+            delivered: true,
+        }
+    ];
+</aside>
 
 ```
     // Estamos retornando el objeto
     // por ende se copia la refencia en memoria
     const rta = orders.map(item => {
-        item.tax = .19
+        item.tax = 0.19
         return item;
     })
 ```
@@ -187,11 +212,259 @@ Para evitarlo, y poder realizar una copia y evitar la referencia en memoria, uti
 
 ```
     const rta = orders.map(item => {
-        // retornamos un nuevo objeto 
-        //pero evitamos hacer ref. en memoria
+    // retornamos un nuevo objeto 
+    //pero evitamos hacer ref. en memoria
         return {
             ...item,
-            tax: .19,
+            tax: 0.50,
         }
     })
 ```
+
+# 📒 V6 - Filter
+
+🗒️ El método filter() crea un nuevo array con todos los elementos que cumplan la condición implementada por la función dada.
+
+```
+    const words = ['spray', 'limit', 'elite', 'exuberant', 'destruction', 'present'];
+
+    const result = words.filter(word => word.length > 6);
+
+    console.log(result);
+    // expected output: Array ["exuberant", "destruction", "present"]
+```
+
+## Sintaxis
+ 
+ ```
+    var newArray = arr.filter(callback(currentValue[, index[, array]])[, thisArg])
+ ```
+
++ Resumen: 
+    + `filter()` lo que hace es filtrar el array original en base a una condición, los que la cumplan estaran en el nuevo array creado.
+    + Por lo tanto filter() es inmutable y el nuevo array creado solamente puede contener:
+        + cero coincidencias
+        + todas coincidencias
+        + algunas coincidencias
+        + Pero nunca más coincidencias que el tamaño del array original.
+
+```
+    const words = ["spray", "limit", "elite", "exuberant"];
+
+    // con for
+    const newArray = [];
+    for (let index = 0; index < words.length; index++) {
+    const element = words[index];
+    if (element.length >= 6) {
+        newArray.push(element);
+    }
+    }
+
+    // VS
+
+    // con filter
+    const rta = words.filter((element) => element.length >= 6);
+
+    // en ambos casos, el resultado:
+    > [ 'exuberant' ]
+
+
+```
+
++ offtopic: el método `includes()` determina si una matriz incluye un determinado elemento, devuelve true o false según corresponda.
+
+```
+    const array1 = [1, 2, 3];
+
+    console.log(array1.includes(2));
+    // expected true
+
+    const pets = ['cat', 'dog', 'bat'];
+
+    console.log(pets.includes('cat'));
+    // expected true
+
+    console.log(pets.includes('at'));
+    // expected false
+
+```
+
+![filter](./img/v6.png)
+
+# 📒 V7 - Reduce
+
+El método reduce() ejecuta una función reductora sobre cada elemento de un array, devolviendo como resultado un único valor.
+
+```
+    const array1 = [1, 2, 3, 4];
+
+    // 0 + 1 + 2 + 3 + 4
+    const initialValue = 0;
+    const sumWithInitial = array1.reduce(
+        (previousValue, currentValue) => previousValue + currentValue,
+        initialValue
+    );
+
+    console.log(sumWithInitial);
+    // expected output: 10
+
+```
++ La función reductora recibe cuatro argumentos:
+    1. Acumulador (acc)
+    2. Valor Actual (cur)
+    3. Índice Actual (idx)
+    4. Array (src)
+
+El valor devuelto de la función reductora se asigna al acumulador, cuyo valor se recuerda en cada iteración de la matriz y, en última instancia, se convierte en el valor final, único y resultante.
+
+## Sintaxis
+
+``` 
+    arr.reduce(callback(acumulador, valorActual[, índice[, array]])[, valorInicial])
+```
+
+## Descripción
+
++ El método reduce() ejecuta callback una vez por cada elemento presente en el array, excluyendo los huecos del mismo, recibe cuatro argumentos:
+    + valorAnterior
+    + valorActual
+    + indiceActual
+    + array
+
+La primera vez que se llama la función, valorAnterior y valorActual pueden tener uno de dos valores. Si se proveyó un valorInicial al llamar a reduce, entonces valorAnterior será igual al valorInicial y valorActual será igual al primer elemento del array. Si no se proveyó un valorInicial, entonces valorAnterior será igual al primer valor en el array y valorActual será el segundo.
+
+Si el array está vacío y no se proveyó un valorInicial lanzará un TypeError (en-US). Si el array tiene un sólo elemento (sin importar la posición) y no se proveyó un valorInicial, o si se proveyó un valorInicial pero el arreglo está vacío, se retornará ese único valor sin llamar a la función.
+
+Suponga que ocurre el siguiente uso de reduce:
+
+```
+    [0,1,2,3,4].reduce(function(valorAnterior, valorActual, indice, vector){
+    return valorAnterior + valorActual;
+    });
+
+    // Primera llamada
+    valorAnterior = 0, valorActual = 1, indice = 1
+
+    // Segunda llamada
+    valorAnterior = 1, valorActual = 2, indice = 2
+
+    // Tercera llamada
+    valorAnterior = 3, valorActual = 3, indice = 3
+
+    // Cuarta llamada
+    valorAnterior = 6, valorActual = 4, indice = 4
+
+    // el array sobre el que se llama a reduce siempre es el objeto [0,1,2,3,4]
+
+    // Valor Devuelto: 10
+```
+Y si proporcionas un valorInicial, el resultado sería como este:
+
+```
+    [0,1,2,3,4].reduce(function(valorAnterior, valorActual, indice, vector){
+    return valorAnterior + valorActual;
+    }, 10);
+
+    // Primera llamada
+    valorAnterior = 10, valorActual = 0, indice = 0
+
+    // Segunda llamada
+    valorAnterior = 10, valorActual = 1, indice = 1
+
+    // Tercera llamada
+    valorAnterior = 11, valorActual = 2, indice = 2
+
+    // Cuarta llamada
+    valorAnterior = 13, valorActual = 3, indice = 3
+
+    // Quinta llamada
+    valorAnterior = 16, valorActual = 4, indice = 4
+
+    // el array sobre el que se llama a reduce siempre es el objeto [0,1,2,3,4]
+
+    // Valor Devuelto: 20
+```
+
+## Ejemplos
+
++ Ejemplo: Sumar todos los valores de un array
+
+```
+    var total = [0, 1, 2, 3].reduce(function(a, b){ return a + b; });
+    // total == 6
+
+```
+
++ Ejemplo: Integrar un array a partir de varios arrays
+```
+    var integrado = [[0,1], [2,3], [4,5]].reduce(function(a,b) {
+    return a.concat(b);
+    });
+    // integrado es [0, 1, 2, 3, 4, 5]
+```
+
+## Resumen
+
+Este método REDUCE, efectivamente hace eso. Solo reduce a un solo valor y no devuelve otro array, simplemente un valor.
+
+Se utiliza muchísimo para hacer cálculos a partir de la información de un array.
+
+En su composición, a primeras, tiene como argumentos de la función del primer parámetro, al acumulador y como segundo parámetro al elemento por el que va iterando el loop. Y como segundo argumento del reduce(), se pasa el valor inicial del acumulador.
+
+```
+    const totals = [1,2,3,4];
+    // primer argumento de la f() es el acumulador
+    // segundo argumento de la f() es el elemento
+    // segundo parámetro de la f() es el estado inicial del acumulador
+    const rta = totals.reduce((sum, element) => sum + element, 0);
+    console.log(rta)
+```
+
++ Así funciona la iteración del reduce() por dentro:
+
+![reduce](./img/v7.png)
+
+![reduce](./img/v7_1.png)
+
+![reduce](./img/v7_2.png)
+
+![reduce](./img/v7_3.png)
+
+# 📒 V8 - Reduce Reloaded
+
+Veremos las iteraciones en imagenes del siguiente codigo:
+```
+    /Contaremos el numero de veces que se repiten los numero dentro del array items
+    //1 --> se repite una vez
+    //3 --> se repite dos veces
+    //2 -- se repite una vezS
+    const items = [1, 3, 2, 3];
+
+    //funcion reduce
+    // primer argumento de la f() es el acumulador
+    // segundo argumento de la f() es el elemento y es el estado inicial del acumulador
+    const rta = items.reduce((obj, item) => {
+        //Si dentro no existe el numero, inicializamos el acumulador a uno
+        if (!obj[item]) {
+            obj[item] = 1;
+        } else {//si no, existe y sumamos uno en el acumulador
+            obj[item] = obj[item] + 1;
+        }
+        return obj;
+    }, {});
+
+    console.log(rta);
+```
++ Salida:
+
+```
+    { '1': 1, '2': 1, '3': 2 }
+```
+
+![reduce](./img/v8_1.png)
+
+![reduce](./img/v8_2.png)
+
+![reduce](./img/v8_3.png)
+
+![reduce](./img/v8_4.png)
