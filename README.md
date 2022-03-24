@@ -468,3 +468,70 @@ Veremos las iteraciones en imagenes del siguiente codigo:
 ![reduce](./img/v8_3.png)
 
 ![reduce](./img/v8_4.png)
+
+# 📒 v9 - Some
+
+El método some() comprueba si al menos un elemento del array cumple con la condición implementada por la función proporcionada.
++ Nota: Este método devuelve false para cualquier condición puesta en un array vacío.
+
+## Sintaxis
+
+arr.some(callback(element[, index[, array]])[, thisArg])
+
+Resumen
+
+Este método nos devuelve true o false sí al menos 1 elemento de nuestro array cumple con la condición.
+
+```
+    const array = [1, 2, 3, 4, 5];
+
+    const even = (element) => element % 2 === 0;
+
+    console.log(array.some(even));
+    // resultado true
+
+```
+
+# 📒 V10 - Every
+
+Determina si todos los elementos en el array satisfacen una condición.
++ Precaución: ¡Llamar este método en un array vacío devuelve true para cualquier condición!
+```
+    const isBelowThreshold = (currentValue) => currentValue < 40;
+
+    const array1 = [1, 30, 39, 29, 10, 13];
+
+    console.log(array1.every(isBelowThreshold));
+    // expected output: true
+
+```
+
+## Sintaxis
+
+```
+    arr.every(callback(element[, index[, array]])[, thisArg])
+```
+
+# 📒 v11 - Find y Finder
+
+El método find() devuelve el valor del primer elemento del array que cumple la función de prueba proporcionada.
+
+```
+    const array1 = [5, 12, 8, 130, 44];
+
+    const found = array1.find(element => element > 10);
+
+    console.log(found);
+    // expected output: 12
+```
+
++ Si necesitas el índice del elemento encontrado en el array, utiliza findIndex().
++ Si necesitas encontrar el índice de un elemento, Array.prototype.indexOf(). (Es similar a findIndex(), pero comprueba la igualdad de cada elemento con el valor en lugar de usar una función de prueba.)
++ Si necesitas encontrar si un valor existe en un array, utiliza Array.prototype.includes().
++ Si necesitas encontrar si algún elemento cumple la función de prueba proporcionada, usa Array.prototype.some().
+
+## Sintaxis
+
+```
+    arr.find(callback(element[, index[, array]])[, thisArg])
+```
