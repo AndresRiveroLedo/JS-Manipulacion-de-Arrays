@@ -535,3 +535,369 @@ El método find() devuelve el valor del primer elemento del array que cumple la 
 ```
     arr.find(callback(element[, index[, array]])[, thisArg])
 ```
+
+# 📒 v12 - Includes
+
+El método includes() determina si una array incluye un determinado elemento, devuelve true o false según corresponda.
+
+```
+    const array1 = [1, 2, 3];
+
+    console.log(array1.includes(2));
+    // expected output: true
+
+    const pets = ['cat', 'dog', 'bat'];
+
+    console.log(pets.includes('cat'));
+    // expected output: true
+
+    console.log(pets.includes('at'));
+    // expected output: false
+```
+
+También posee un segundo parámetro que es el fromIndex, que es la posición donde comenzar a buscar el valor en el array.
+
+```
+    [1, 2, 3].includes(2);     // true
+    [1, 2, 3].includes(4);     // false
+    [1, 2, 3].includes(3, 3);  // false
+    [1, 2, 3].includes(3, -1); // true
+    [1, 2, NaN].includes(NaN); // true
+```
+
+Este fromIndex sí es igual o mayor que el tamaño del array, devuelve false automaticamente sin buscar en el vector. Sí el fromIndex es negativo busca en todo el array. Y para los casos 0, -0, +0 lo toma como cero y también lee todo el array.
+
+# 📒 v13 - Join
+
+El método join() une todos los elementos de un array en una cadena y devuelve esta cadena. Podemos pasarle cualquier elemento como separador que deseemos.
+
+```
+    const elements = ['Fire', 'Air', 'Water'];
+
+    console.log( elements.join() );
+    // expected output "Fire,Air,Water"
+
+    console.log(elements.join(''));
+    // expected output "FireAirWater"
+
+    console.log(elements.join('-'));
+    // expected output "Fire-Air-Water"
+```
+
+Y el método split() divide un objeto de tipo String en un array de cadenas mediante la separación de la cadena en sub-cadenas. Acá esta muy bien explicado y con muchos ejemplos:
+
+```
+function dividirCadena(cadenaADividir,separador) {
+   var arrayDeCadenas = cadenaADividir.split(separador);
+   document.write('<p>La cadena original es: "' + cadenaADividir + '"');
+   document.write('<br>El separador es: "' + separador + '"');
+   document.write("<br>El array tiene " + arrayDeCadenas.length + " elementos: ");
+
+   for (var i=0; i < arrayDeCadenas.length; i++) {
+      document.write(arrayDeCadenas[i] + " / ");
+   }
+}
+
+```
+    var cadenaVerso = "Oh brave new world that has such people in it.";
+    var cadenaMeses = "Jan,Feb,Mar,Apr,May,Jun,Jul,Aug,Sep,Oct,Nov,Dec";
+
+    var espacio = " ";
+    var coma = ",";
+
+    dividirCadena(cadenaVerso, espacio);
+    dividirCadena(cadenaVerso);
+    dividirCadena(cadenaMeses, coma);
+```
+
+Output:
+
+```
+    La cadena original es: "Oh brave new world that has such people in it."
+    El separador es: " "
+    El array tiene 10 elementos: Oh / brave / new / world / that / has / such / people / in / it. /
+
+    La cadena original es: "Oh brave new world that has such people in it."
+    El separador es: "undefined"
+    El array tiene 1 elementos: Oh brave new world that has such people in it. /
+
+    La cadena original es: "Jan,Feb,Mar,Apr,May,Jun,Jul,Aug,Sep,Oct,Nov,Dec"
+    El separador es: ","
+    El array tiene 12 elementos: Jan / Feb / Mar / Apr / May / Jun / Jul / Aug / Sep / Oct / Nov / Dec /
+```
+
+# 📒 v14 - Concat
+
+El método concat() se usa para unir dos o más arrays. Este método no cambia los arrays existentes, sino que devuelve un nuevo array. 
+
+Recordar que al ser inmutable, los arrays (tanto el nuevo como el viejo) quedaran referenciados por memoria, por lo tanto sí modificamos alguno de los dos, los cambios se verán reflejados en ambos.
+
+````
+    const array1 = ['a', 'b', 'c'];
+    const array2 = ['d', 'e', 'f'];
+    const array3 = array1.concat(array2);
+
+    console.log(array3);
+    // expected output: Array ["a", "b", "c", "d", "e", "f"]
+
+```
+
+El método slice() devuelve una copia de una parte del array dentro de un nuevo array empezando por inicio hasta fin (fin no incluido). El array original no se modificará.
+
+```
+    const animals = ['ant', 'bison', 'camel', 'duck', 'elephant'];
+
+    console.log(animals.slice(2));
+    // expected output: Array ["camel", "duck", "elephant"]
+
+    console.log(animals.slice(2, 4));
+    // expected output: Array ["camel", "duck"]
+
+    console.log(animals.slice(1, 5));
+    // expected output: Array ["bison", "camel", "duck", "elephant"]
+
+    console.log(animals.slice(-2));
+    // expected output: Array ["duck", "elephant"]
+
+    console.log(animals.slice(2, -1));
+    // expected output: Array ["camel", "duck"]
+```
+
+# 📒 v15 -Flat
+
+El método flat() crea una nueva matriz con todos los elementos de sub-array concatenados recursivamente hasta la profundidad especificada.
+La funcionalidad de Flat con recursión: Se busca recursivamente en cada elemento hasta que ya no se encuentre otra lista y se van uniendo los elementos encontrados con Cat.
+
+```
+    var arr1 = [1, 2, [3, 4]];
+    arr1.flat();
+    // [1, 2, 3, 4]
+
+    var arr2 = [1, 2, [3, 4, [5, 6]]];
+    arr2.flat();
+    // [1, 2, 3, 4, [5, 6]]
+
+    var arr3 = [1, 2, [3, 4, [5, 6]]];
+    arr3.flat(2);
+    // [1, 2, 3, 4, 5, 6]
+```
+
+El algoritmo sin utilizar flat
+
+![sin flat](./img/v16)
+
+# 📒 v16 - FlatMap
+
+El método flatMap() primero mapea cada elemento usando una función de mapeo, luego aplana el resultado en una nueva matriz. Es idéntico a un map seguido de un flatten (en-US)de profundidad 1, pero flatMap es a menudo útil y la fusión de ambos en un método es ligeramente más eficiente.
+
+## Valor de retorno
+
+Una nueva matriz con cada elemento es el resultado de la función de devolución de llamada y se aplana a una profundidad de 1.
+
+```
+    var arr1 = [1, 2, 3, 4];
+
+    arr1.map(x => [x * 2]);
+    // [[2], [4], [6], [8]]
+
+    arr1.flatMap(x => [x * 2]);
+    // [2, 4, 6, 8]
+
+    // solo un nivel es aplanado
+    arr1.flatMap(x => [[x * 2]]);
+    // [[2], [4], [6], [8]]
+```
+
+## Alternativa
+
+### reduce y concat
+
+```
+    var arr1 = [1, 2, 3, 4];
+
+    arr1.flatMap(x => [x * 2]);
+    // es equivalente a
+    
+    arr1.reduce((acc, x) => acc.concat([x * 2]), []);
+    // [2, 4, 6, 8]
+```
+
+# 📒 v17 - Mutable functions
+
+Aquí veremos algunos metodos mutables:
+
+```
+    const products = [
+        { title: "Pizza", price: 121, id: "🍕" },
+        { title: "Burger", price: 121, id: "🍔" },
+        { title: "Hot cakes", price: 121, id: "🥞" },
+    ];
+
+    const myProducts = [];
+    console.log("products", products);
+    console.log("myProducts", myProducts);
+    console.log("-".repeat(10));
+    
+    const productIndex = products.findIndex(item => item.id === '🍔');
+    if (productIndex !== -1) {
+        myProducts.push(products[productIndex]);
+        products.splice(productIndex, 1);
+    }
+    console.log("products", products);
+    console.log("myProducts", myProducts);
+    console.log("-".repeat(10));
+    
+    // Update
+    
+    const productsV2 = [
+        { title: "Pizza", price: 121, id: "🍕" },
+        { title: "Burger", price: 121, id: "🍔" },
+        { title: "Hot cakes", price: 121, id: "🥞" },
+        ];
+    const update = {
+        id: "🥞",
+        changes: {
+            price: 200,
+            description: 'delicioso'
+        }
+    }
+    const productIndexV2 = productsV2.findIndex(item => item.id === update.id);
+    productsV2[productIndexV2] = {
+        ...productsV2[productIndexV2],
+        ...update.changes,
+    };
+    console.log(productsV2);
+```
+
+# 📒 v18 - Sort
+
+El método sort() ordena los elementos de un arreglo (array) localmente y devuelve el arreglo ordenado. La ordenación no es necesariamente estable. El modo de ordenación por defecto responde a la posición del valor del string de acuerdo a su valor Unicode.
+
+## Sintaxis
+
+```
+    arr.sort([compareFunction])
+```
+
+## Descripción
+
+Si no se provee compareFunction, los elementos son ordenados convirtiéndolos a strings y comparando la posición del valor Unicode de dichos strings. Por ejemplo, "Cherry" viene antes que "banana"  (porque las mayúsculas van antes que las minúsculas en la codificación Unicode) . En un ordenamiento numérico, 9 está antes que 80, pero dado que los números son convertidos a strings y ordenados según el valor Unicode, el resultado será "80" antes que "9".
+
+```
+    var frutas = ['guindas', 'manzanas', 'bananas'];
+    frutas.sort(); // ['bananas', 'guindas', 'manzanas']
+
+    var puntos = [1, 10, 2, 21];
+    puntos.sort(); // [1, 10, 2, 21]
+    // Tenga en cuenta que 10 viene antes que 2
+    // porque '10' viene antes que '2' según la posición del valor Unicode.
+
+    var cosas = ['word', 'Word', '1 Word', '2 Words'];
+    cosas.sort(); // ['1 Word', '2 Words', 'Word', 'word']
+    // En Unicode, los números vienen antes que las letras mayúsculas
+    // y estas vienen antes que las letras minúsculas.
+```
+
++ Si se provee compareFunction, los elementos del array son ordenados de acuerdo al valor que retorna dicha función de comparación. Siendo a y b dos elementos comparados, entonces:
+    + Si compareFunction(a, b) es menor que 0, se sitúa a en un indice menor que b. Es decir, a viene primero.
+    + Si compareFunction(a, b) retorna 0, se deja a y b sin cambios entre ellos, pero ordenados con respecto a todos los elementos diferentes. Nota: el estandar ECMAscript no garantiza este comportamiento, por esto no todos los navegadores (p.ej.  Mozilla en versiones que datan hasta el 2003) respetan esto.
+    + Si compareFunction(a, b) es mayor que 0, se sitúa b en un indice menor que a.
+    + compareFunction(a, b) siempre debe retornar el mismo valor dado un par especifico de elementos a y b como sus argumentos. Si se retornan resultados inconsistentes entonces el orden de ordenamiento es indefinido.
+
+## Entonces, la función de comparación tiene la siguiente forma:
+
+```
+    function compare(a, b) {
+    if (a es menor que b según criterio de ordenamiento) {
+        return -1;
+    }
+    if (a es mayor que b según criterio de ordenamiento) {
+        return 1;
+    }
+    // a debe ser igual b
+    return 0;
+    }
+```
+
+Para comparar números en lugar de strings, la función de comparación puede simplemente restar b de a. La siguiente función ordena el array de modo ascendente:
+
+```
+    function compareNumbers(a, b) {
+    return a - b;
+    }
+```
+
+El metodo sort puede ser usado convenientemente con function expressions (y closures):
+
+```
+    var numbers = [4, 2, 5, 1, 3];
+    numbers.sort(function(a, b) {
+    return a - b;
+    });
+    console.log(numbers);
+
+
+    // [1, 2, 3, 4, 5]
+```
+Los objectos pueden ser ordenados por el valor de una de sus propiedades.
+
+```
+    var items = [
+    { name: 'Edward', value: 21 },
+    { name: 'Sharpe', value: 37 },
+    { name: 'And', value: 45 },
+    { name: 'The', value: -12 },
+    { name: 'Magnetic', value: 13 },
+    { name: 'Zeros', value: 37 }
+    ];
+    items.sort(function (a, b) {
+    if (a.name > b.name) {
+        return 1;
+    }
+    if (a.name < b.name) {
+        return -1;
+    }
+    // a must be equal to b
+    return 0;
+    });
+```
+
+## Ejemplos
+
+### Ordenando un array
+
+Un array de elementos string, sin especificar una función de comparación:
+
+```
+    var arr = [ 'a', 'b', 'Z', 'Aa', 'AA' ];
+    arr.sort();  //[ 'AA', 'Aa', 'Z', 'a', 'b' ]
+```
+
+Un array de elementos numéricos,  sin función de comparación:
+
+```
+    var arr = [ 40, 1, 5, 200 ];
+    arr.sort();  //[ 1, 200, 40, 5 ]
+```
+
+Un array de elementos numéricos, usando una función de comparación:
+
+```
+    var arr = [ 40, 1, 5, 200 ];
+    function comparar ( a, b ){ return a - b; }
+    arr.sort( comparar );  // [ 1, 5, 40, 200 ]
+```
+
+Lo mismo pero usando una función anónima normal:
+
+```
+    var arr = [ 40, 1, 5, 200 ];
+    arr.sort(function(a,b){return a - b;});  // [ 1, 5, 40, 200 ]
+```
+
+Lo mismo escrito más compacto mediante una función flecha:
+
+```
+    var arr = [ 40, 1, 5, 200 ];
+    arr.sort((a,b)=>a-b);  // [ 1, 5, 40, 200 ]
+```
