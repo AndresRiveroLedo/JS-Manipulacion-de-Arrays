@@ -33,6 +33,9 @@ const products = [
           description: 'delicioso'
       }
   }
+  console.log(productsV2);
+  console.log(update);
+
   const productIndexV2 = productsV2.findIndex(item => item.id === update.id);
   productsV2[productIndexV2] = {
       ...productsV2[productIndexV2],

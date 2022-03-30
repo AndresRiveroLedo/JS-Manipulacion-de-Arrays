@@ -7,6 +7,7 @@ for (let index = 0; index < numbers.length; index++) {
     const element = numbers[index];
     if (element >= 40) {
         rta = false
+        break;
     }
 }
 console.log('for', rta); //true

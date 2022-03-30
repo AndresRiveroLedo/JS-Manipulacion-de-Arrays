@@ -15,3 +15,10 @@ console.log(sum);
 // segundo argumento de la f() es el elemento y es el estado inicial del acumulador
 const rta = totals.reduce((sum, element) => sum + element, 0)
 console.log('rta', rta);
+
+//Ejemplo 
+var integrado = [[0,1], [2,3], [4,5]].reduce(function(a,b) {
+    return a.concat(b);
+    });
+  
+console.log(integrado) //[ 0, 1, 2, 3, 4, 5 ]

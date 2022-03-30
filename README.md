@@ -40,6 +40,8 @@ En JavaScript, solo los objetos (objects) y las matrices (arrays) son mutables, 
 
 ![valores](./img/v3_0.webp)
 
+Los primitivos se pasan por valor y los objetos por referencias:
+
 Ejemplo gráfico:
 
 ![valores](./img/v3.gif)
@@ -58,13 +60,13 @@ En el código siguiente, se crea un nuevo objeto con valor de cadena.
 
 Al agregar “immutableString” con un valor de cadena, ocurren los siguientes eventos:
 
-<aside>
-    Se recupera el valor existente de "immutableString"
-    "Mundo" se agrega al valor existente de "immutableString"
-    El valor resultante luego se asigna a un nuevo bloque de memoria
-    El objeto "immutableString" ahora apunta al espacio de memoria recién creado
-    El espacio de memoria creado anteriormente ahora está disponible para la recolección de basura.
-</aside>
+```
+    - Se recupera el valor existente de "immutableString"
+    - "Mundo" se agrega al valor existente de "immutableString"
+    - El valor resultante luego se asigna a un nuevo bloque de memoria
+    - El objeto "immutableString" ahora apunta al espacio de memoria recién creado
+    - El espacio de memoria creado anteriormente ahora está disponible para la recolección de basura.
+```
 
 ## Estructuras de datos inmutables
 
@@ -174,7 +176,8 @@ Ahora, si quieres aplicar esto en tus proyectos hay librerías de Javascript com
 
 Tener en cuenta que cuando trabajamos con objetos y map() y retornamos el mismo objeto estamos copiando la referencia en memoria que tiene el objeto original que le aplicamos el map(). Esto provoca que como estamos modificando la referencia en memoria, el array original también sea modificado. Entonces en conclusión, por más que map() sea inmutable en este punto estamos copiando la referencia en memoria y por eso hace el cambio en el original.
 + Nuestro Array de Objetos:
-<aside>
+
+```
     const orders = [
         {
             customName: "Nicolas",
@@ -197,7 +200,7 @@ Tener en cuenta que cuando trabajamos con objetos y map() y retornamos el mismo 
             delivered: true,
         }
     ];
-</aside>
+```
 
 ```
     // Estamos retornando el objeto
@@ -254,10 +257,10 @@ Para evitarlo, y poder realizar una copia y evitar la referencia en memoria, uti
     // con for
     const newArray = [];
     for (let index = 0; index < words.length; index++) {
-    const element = words[index];
-    if (element.length >= 6) {
-        newArray.push(element);
-    }
+        const element = words[index];
+        if (element.length >= 6) {
+            newArray.push(element);
+        }
     }
 
     // VS
@@ -430,6 +433,8 @@ En su composición, a primeras, tiene como argumentos de la función del primer 
 
 ![reduce](./img/v7_3.png)
 
+![reduce](./img/v7.gif)
+
 # 📒 V8 - Reduce Reloaded
 
 Veremos las iteraciones en imagenes del siguiente codigo:
@@ -437,7 +442,7 @@ Veremos las iteraciones en imagenes del siguiente codigo:
     /Contaremos el numero de veces que se repiten los numero dentro del array items
     //1 --> se repite una vez
     //3 --> se repite dos veces
-    //2 -- se repite una vezS
+    //2 -- se repite una vez
     const items = [1, 3, 2, 3];
 
     //funcion reduce
@@ -469,6 +474,10 @@ Veremos las iteraciones en imagenes del siguiente codigo:
 
 ![reduce](./img/v8_4.png)
 
+## ¿No entiendo el obj[item]?
+
+Este formato nos permite acceder al valor que tiene una propiedad de un objeto. obj es el objeto acumulador, item es la key del objeto y obj[item] es el value de item en obj
+
 # 📒 v9 - Some
 
 El método some() comprueba si al menos un elemento del array cumple con la condición implementada por la función proporcionada.
@@ -491,6 +500,10 @@ Este método nos devuelve true o false sí al menos 1 elemento de nuestro array 
     // resultado true
 
 ```
+
+## ¿tengo que instalar la libreria en el directorio del proyecto o en el home?
+
+debes instalar esta librería en el directorio del proyecto, con esto ya debería funcionarte.
 
 # 📒 V10 - Every
 
@@ -598,7 +611,6 @@ function dividirCadena(cadenaADividir,separador) {
    }
 }
 
-```
     var cadenaVerso = "Oh brave new world that has such people in it.";
     var cadenaMeses = "Jan,Feb,Mar,Apr,May,Jun,Jul,Aug,Sep,Oct,Nov,Dec";
 
@@ -632,7 +644,7 @@ El método concat() se usa para unir dos o más arrays. Este método no cambia l
 
 Recordar que al ser inmutable, los arrays (tanto el nuevo como el viejo) quedaran referenciados por memoria, por lo tanto sí modificamos alguno de los dos, los cambios se verán reflejados en ambos.
 
-````
+```
     const array1 = ['a', 'b', 'c'];
     const array2 = ['d', 'e', 'f'];
     const array3 = array1.concat(array2);
@@ -684,7 +696,8 @@ La funcionalidad de Flat con recursión: Se busca recursivamente en cada element
 
 El algoritmo sin utilizar flat
 
-![sin flat](./img/v16)
+![sin flat](./img/v16.png)
+
 
 # 📒 v16 - FlatMap
 

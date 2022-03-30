@@ -7,6 +7,7 @@ console.log(months);
 //ejemplo 2
 const numbers = [1, 30, 4, 21, 100000];
 numbers.sort((a,b) => a - b); //de menor a mayor
+console.log(numbers);
 numbers.sort((a,b) => b - a); //de Mayor a menor
 console.log(numbers);
 

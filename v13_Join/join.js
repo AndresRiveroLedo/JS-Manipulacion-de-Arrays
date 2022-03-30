@@ -11,9 +11,13 @@ const rta = elements.join('--')
 console.log('for:', rtaFinal);
 console.log('join:', rta);
 
+
 const title = 'Curso de manipulación de arrays';
 
 console.log(title.split(' '))//lo convertimos en un array
 
 const urlFinal = title.split(' ').join('-').toLowerCase();
 console.log(urlFinal);
+
+
+
