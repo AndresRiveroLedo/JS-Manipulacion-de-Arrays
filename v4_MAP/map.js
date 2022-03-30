@@ -13,3 +13,7 @@ for(let index = 0; index < letters.length; index++){
 }
 
 //Con map nos basta una linea de codigo para el mismo resultado
+
+const array = ['a', 'bb', 'ccc']; 
+const rta = array.map(item => item.length);
+console.log(rta);
